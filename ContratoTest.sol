@@ -80,11 +80,35 @@ modifier onlyOwner() {
     _;
 }
 
-//Events
-event Evento(string nombre, uint edad);
-
-//Functions
-function suma(uint a, uint b) public pure returns (uint) {
-    return a + b;
+//Ejemplo de estructura 
+//Modificadores
+modifier modificador1 {
+	if(5 + 2 != 10) {
+		revert();
+	}
+	_;
 }
+
+
+//Eventos
+event Multiplicacion(uint256 result);
+
+//Funciones
+
+
+//Funciones palabra (function) + nombre + argumentos + visibilidad + Modificadores + valor de retorno o devuelto (returns)
+
+//Visibilidad : 
+//public : visible para todos
+//private : visible solo para el contrato
+//internal : visible solo para el contrato y los contratos que heredan
+//external : visible solo para los contratos externos
+
+function multiplier(uint256 num1a, uint256 num2b) public modificador1 returns (uint256 result) {
+    result = num1a * num2b;
+    emit Multiplicacion(result);
+    return result;
+}
+
+
 }
