@@ -10,14 +10,15 @@ contract VulnerableBank {
 
     // --- FUNCIÓN VULNERABLE ---
     function withdraw() public {
+        // 1. Checks (Verificaciones)
         uint256 bal = balances[msg.sender];
         require(bal > 0, "Insufficient balance");
 
-        // 1. Interacción externa (Envío de dinero)
+        // 2. Effects (Efectos - Actualizar estado antes de interactuar)
+        balances[msg.sender] = 0;
+
+        // 3. Interactions (Interacciones externas)
         (bool success, ) = msg.sender.call{value: bal}("");
         require(success, "Transfer failed");
-
-        // 2. Efecto (Actualización de balance) - ¡DEMASIADO TARDE!
-        balances[msg.sender] = 0;
     }
 }
