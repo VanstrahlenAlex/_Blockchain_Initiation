@@ -4,6 +4,10 @@
 //version
 pragma solidity ^0.8.31;
 
+
+//Custom errors - se deben hacer antes del contrato y entre la version y el contrato
+error CustomErrorTest();
+
 //contract
 contract RequiereTest {
 	
@@ -13,6 +17,7 @@ contract RequiereTest {
 		admin = admin_;
 	}
 
+	//Function + if check: msg.sender sea igual a admin
 	function checkAdmin() public view {
 		if(msg.sender != admin) revert();
 	}
@@ -25,6 +30,12 @@ contract RequiereTest {
 	//Function + require check
 	function checkAdminAssert() public view {
 		assert(msg.sender == admin);
+	}
+
+
+	//Function + if + custom error
+	function checkAdminCustomErrors() public view {
+		if(msg.sender != admin) revert CustomErrorTest();
 	}
 
 	function getAdmin() public view returns(address){
